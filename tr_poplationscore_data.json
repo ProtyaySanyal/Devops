@@ -1,0 +1,30 @@
+{
+	"name": "tr_poplationscore_data",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_idex_pop_data",
+					"type": "PipelineReference"
+				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "pl_processed_11_hospital_admission_data",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/population/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/e03c2b10-0ae2-480e-b02a-5c7fa70476e0/resourceGroups/covid-reporting-rj/providers/Microsoft.Storage/storageAccounts/sanyal123covidreport",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

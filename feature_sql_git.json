@@ -1,0 +1,16 @@
+{
+	"name": "feature_sql_git",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "feature_cases_death_sql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "covid_reporting",
+			"table": "cases_and_deaths"
+		}
+	}
+}

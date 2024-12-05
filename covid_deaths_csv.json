@@ -1,0 +1,23 @@
+{
+	"name": "covid_deaths_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_httpopendata_acdc_europa_eu",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "covid19/nationalcasedeath/csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,27 @@
+{
+	"name": "ds_new_population_raw_gz01",
+	"properties": {
+		"description": "this this the new data set created",
+		"linkedServiceName": {
+			"referenceName": "ls_pro_adls_blob_forcovidreporting",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "population_by_age (1).tsv.gz",
+				"container": "population-ecdc-new"
+			},
+			"columnDelimiter": "\t",
+			"compressionCodec": "gzip",
+			"compressionLevel": "Optimal",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

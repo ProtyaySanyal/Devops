@@ -1,0 +1,26 @@
+{
+	"name": "population_new_datalake_17",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_covidprojectdl",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "population_new_raw_tsv",
+				"fileSystem": "rawnewcontainer"
+			},
+			"columnDelimiter": "\t",
+			"compressionCodec": "gzip",
+			"compressionLevel": "Optimal",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,12 @@
+{
+	"name": "ls_devop_projectPro",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=sanyal123covidreport;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDNBRUMyNjgxLUQxNzMtNDJCRi05MDk3LTI4RjU2RDU1QjNEM180ZGY1MmI4OC1mYWM0LTQyNzQtODAxMC01MThhYTI0ZGNiY2IiDQp9"
+		}
+	}
+}

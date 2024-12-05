@@ -1,0 +1,12 @@
+{
+	"name": "ls_new_sql_db",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=covid-pro-srv.database.windows.net;initial catalog=covid-por-db;user id=proadm",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEUzNjZGREFELTAyMDItNEQ0My1CNTFBLTQzQkYzMjgzMjRFMV9jYTYwYWZjMS1kNjQzLTQ2NmMtODJlMS0wY2Y2MmI3NjYyYmIiDQp9"
+		}
+	}
+}
