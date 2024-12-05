@@ -1,0 +1,30 @@
+{
+	"name": "pl_processed_pop_data",
+	"properties": {
+		"activities": [
+			{
+				"name": "execute pop transformation",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/covid-db-new/transform/transform_population_data (1)"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-11-10T06:46:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
