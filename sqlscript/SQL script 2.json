@@ -1,0 +1,20 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery/taxi_data_lwd"
+		},
+		"content": {
+			"query": "SELECT\n    trip_data.filepath(1)AS year,\n    trip_data.filepath(2) AS month, \n    trip_data.*\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_csv/year=*/month=*/*.csv',\n        DATA_SOURCE = 'nyc_taxi_src',\n        FORMAT = 'CSV',\n        HEADER_ROW = TRUE, \n        PARSER_VERSION = '2.0'\n    ) AS trip_data;\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_ldw",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

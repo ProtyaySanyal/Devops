@@ -1,0 +1,20 @@
+{
+	"name": "Silver_rate_code",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery/taxi_data_lwd"
+		},
+		"content": {
+			"query": "IF OBJECT_ID('silver.rate_code') IS NOT NULL\nCREATE EXTERNAL TABLE silver.rate_code\n    WITH(\n        DATA_SOURCE = nyc_taxi_src, \n        LOCATION = 'silver/rate_code',\n        FILE_FORMAT = parquet_file_format\n        ) AS  SELECT rate_code, rate_code_id\n\n    FROM OPENROWSET(\n\n            BULK 'raw/rate_code.json',\n            DATA_SOURCE = 'nyc_taxi_src',\n            FORMAT = 'CSV', \n            FIELDTERMINATOR = '0x0b', \n            FIELDQUOTE = '0x0b',\n            ROWTERMINATOR ='0x0a'\n        ) WITH (\n        jsonDoc NVARCHAR(MAX)\n        ) AS rate_code\n        CROSS APPLY OPENJSON(jsonDoc)\n        WITH(\n            rate_code VARCHAR(20),\n            rate_code_id TINYINT\n        );\nSELECT * FROM silver.rate_code;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_ldw",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

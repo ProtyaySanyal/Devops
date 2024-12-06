@@ -1,0 +1,20 @@
+{
+	"name": "10_explore_parquote",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery"
+		},
+		"content": {
+			"query": "-- This is auto-generated code\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_parquet/year=2021/month=01',\n        DATA_SOURCE = 'nyC_taxi_data',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n\nEXEC sp_describe_first_result_set N'SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK ''raw/trip_data_green_parquet/year=2021/month=01'',\n        DATA_SOURCE = ''nyC_taxi_data'',\n        FORMAT = ''PARQUET''\n    ) AS [result]'\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_parquet/year=2021/month=01',\n        DATA_SOURCE = 'nyC_taxi_data',\n        FORMAT = 'PARQUET'\n    ) WITH(\n        trip_type INT, \n        trip_amount FLOAT\n    )AS [result]\n\nSELECT\n    trip_data.filename()AS file_name, \n    trip_data.*\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_parquet/year=2021/month=01',\n        DATA_SOURCE = 'nyC_taxi_data',\n        FORMAT = 'PARQUET'\n    ) AS trip_data\n\nSELECT\n    trip_data.filepath()AS file_path, \n    trip_data.*\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_parquet/**',\n        DATA_SOURCE = 'nyC_taxi_data',\n        FORMAT = 'PARQUET'\n    ) AS trip_data\n\n-- to target partition\nSELECT\n    trip_data.filepath(1)AS year,\n    trip_data.filepath(2) AS month, \n    COUNT(1) AS record_count \nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_parquet/year=*/month=*/*.parquet',\n        DATA_SOURCE = 'nyC_taxi_data',\n        FORMAT = 'PARQUET'\n    ) AS trip_data\n    WHERE trip_data.filepath(1) = '2020'\n    AND \n          trip_data.filepath(2) IN ('06','07', '08')\n    GROUP BY trip_data.filepath(1),  trip_data.filepath(2)\n    ORDER BY trip_data.filepath(1),  trip_data.filepath(2);\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_discovery",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"name": "create databases",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery/taxi_data_lwd"
+		},
+		"content": {
+			"query": "\nCREATE DATABASE nyc_taxi_ldw\nGO\nALTER DATABASE nyc_taxi_ldw COLLATE Latin1_General_100_BIN2_UTF8\nGO\nCREATE SCHEMA bronze \nGO\n\nCREATE SCHEMA silver\nGO\n\nCREATE SCHEMA gold \nGo\nDROP DATABASE gold;\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_ldw",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

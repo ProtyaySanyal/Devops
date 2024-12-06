@@ -1,0 +1,20 @@
+{
+	"name": "5_Explore_view",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery/taxi_data_lwd"
+		},
+		"content": {
+			"query": "DROP VIEW IF EXISTS silver.vw_trip_data_green_csv\nGO\nCREATE VIEW silver.vw_trip_data_green_csv\nAS\nSELECT\n    trip_data.filepath(1)AS year,\n    trip_data.filepath(2) AS month, \n    trip_data.*\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_csv/year=*/month=*/*.csv',\n        DATA_SOURCE = 'nyc_taxi_src',\n        FORMAT = 'CSV',\n        HEADER_ROW = TRUE, \n        PARSER_VERSION = '2.0'\n    ) AS trip_data;\nSELECT * FROM silver.vw_trip_data_green_csv;\n\nSELECT *\n    FROM bronze.vw_trip_data_green_csv ;\n\n\n DROP VIEW IF EXISTS bronze.vw_trip_data_parquet\n    GO\n    CREATE VIEW bronze.vw_trip_data_parquet AS SELECT * FROM bronze.trip_data_green_parquet;\n\nSELECT * FROM bronze.vw_trip_data_parquet;\n\n\n    DROP VIEW IF EXISTS vw_rate_code\n    GO\n    CREATE VIEW vw_rate_code\n\n    AS\n    SELECT rate_code, rate_code_id\n\n    FROM OPENROWSET(\n\n            BULK 'raw/rate_code.json',\n            DATA_SOURCE = 'nyc_taxi_src',\n            FORMAT = 'parquet_file_format'\n        ) WITH (\n        jsonDoc NVARCHAR(MAX)\n        ) AS rate_code\n        CROSS APPLY OPENJSON(jsonDoc)\n        WITH(\n            rate_code VARCHAR(20),\n            rate_code_id TINYINT\n        );\nGO\nSELECT * FROM vw_rate_code;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_ldw",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

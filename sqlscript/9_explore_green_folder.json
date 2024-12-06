@@ -1,0 +1,20 @@
+{
+	"name": "9_explore_green_folder",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery"
+		},
+		"content": {
+			"query": "\nSELECT\nresult.filename() AS file_name,\nCOUNT(1)AS record_count\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_csv/year=*/month=*/*.csv',\n        FORMAT = 'CSV',\n        DATA_SOURCE = 'nyC_taxi_data',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\n    WHERE result.filename() IN ('green_tripdata_2020-01.csv', 'green_tripdata_2021-01.csv')\n\n    GROUP BY result.filename()\n    ORDER BY result.filename();\n\nSELECT\n*\nFROM\n    OPENROWSET(\n        BULK 'raw/trip_data_green_csv/year=*/month=*/*.csv',\n        FORMAT = 'CSV',\n        DATA_SOURCE = 'nyC_taxi_data',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_discovery",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

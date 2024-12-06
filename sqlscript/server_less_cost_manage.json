@@ -1,0 +1,20 @@
+{
+	"name": "server_less_cost_manage",
+	"properties": {
+		"folder": {
+			"name": "Utils"
+		},
+		"content": {
+			"query": "SELECT * FROM sys.dm_external_data_processed;\nSELECT * FROM sys.configurations\nWHERE name LIKE 'Data Processed %';\nsp_set_data_processed_limit\n        @type = N'monthly',\n        @limit_td = 2;\nsp_set_data_processed_limit\n        @type = N'weekly',\n        @limit_td = 1;\n\nsp_set_data_processed_limit\n        @type = N'daily',\n        @limit_td = 1;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

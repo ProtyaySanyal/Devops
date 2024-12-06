@@ -1,0 +1,20 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery/taxi_data_lwd"
+		},
+		"content": {
+			"query": "USE nyc_taxi_ldw;\nSELECT DISTINCT year, month FROM silver.vw_trip_data_green_csv;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_ldw",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

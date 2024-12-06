@@ -1,0 +1,20 @@
+{
+	"name": "2_External_data_source",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery"
+		},
+		"content": {
+			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'abfss://nyc-taxi-data@prosynapsadls.dfs.core.windows.net/raw/taxi_zone.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE, \n        FIELDTERMINATOR = ',', \n        ROWTERMINATOR = '\\n'\n    ) AS [result]\n\n    CREATE EXTERNAL DATA SOURCE nyC_taxi_data\n        WITH(\n            LOCATION = 'abfss://nyc-taxi-data@prosynapsadls.dfs.core.windows.net/'\n        )\nSELECT \n*\nFROM\n    OPENROWSET(\n        BULK 'raw/taxi_zone.csv',\n        DATA_SOURCE = 'nyC_taxi_data',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE \n    ) AS [RESULT]\n\nCREATE EXTERNAL DATA SOURCE nyC_taxi_data_raw\n        WITH(\n            LOCATION = 'abfss://nyc-taxi-data@prosynapsadls.dfs.core.windows.net/'\n        )\n\nDROP EXTERNAL DATA SOURCE nyC_taxi_data_raw\n\nSELECT name, location FROM sys.external_data_sources;\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_discovery",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,81 @@
+{
+	"name": "pl_create_taxi_table",
+	"properties": {
+		"activities": [
+			{
+				"name": "delete-taxi-zone",
+				"type": "Delete",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_silver_taxi_zone_dynamic",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_folder_path": {
+								"value": "@variables('v_folder_path')",
+								"type": "Expression"
+							}
+						}
+					},
+					"enableLogging": false,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			},
+			{
+				"name": "usp_create_silver_taxi_store",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "delete-taxi-zone",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": {
+						"value": "@variables('v_usp_name')",
+						"type": "Expression"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_server_less_sql_pool_taxi_zone_nyc_taxi_ldw",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"variables": {
+			"v_folder_path": {
+				"type": "String",
+				"defaultValue": "sliver/taxi_zone"
+			},
+			"v_usp_name": {
+				"type": "String",
+				"defaultValue": "silver.usp_silver_taxi_zone"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-10-23T18:33:48Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
